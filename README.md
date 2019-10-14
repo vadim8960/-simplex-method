@@ -1,1 +1,1 @@
-# -simplex-method
+# simplex-method
