@@ -44,12 +44,7 @@ float** read_data(int count_equ, int count_x) {
 		char str[100];
 		mat[c] = (float*)malloc(count_x * sizeof(float*));
 		int index;
-
-		// fflush(stdin);
 		fgets(str, 100, stdin);
-		int junk;
-		// while ((junk = getchar()) != '\n' && (junk = getchar()) != EOF);
-		// printf("%s\n", str);
 		bool flag_sign = true;
 		for (int i = 0; i < strlen(str); ++i) {
 			if ('0' <= str[i] && str[i] <= '9' || str[i] == 'x') {
