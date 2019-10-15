@@ -14,8 +14,14 @@ int main() {
 	float** mat = read_data(l_func, sign_equ, count_equ, count_x);
 
 	standardization_matrix(mat, l_func, sign_equ, count_equ, count_x);
+	matrix_print(mat, count_equ, count_x);
+	swap_variables(mat, l_func, count_equ, count_x, 1, 0);
 
 	matrix_print(mat, count_equ, count_x);
+	printf("L: ");
+	for (int i = 0; i < count_x; ++i)
+		printf("%4f ", l_func[i]);
+	printf("\n");
 
 	free(l_func);
 	free(sign_equ);
