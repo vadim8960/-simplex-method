@@ -13,7 +13,12 @@ int main() {
 	int* sign_equ = (int*)malloc(count_equ * sizeof(int*));
 	float** mat = read_data(l_func, sign_equ, count_equ, count_x);
 
+	standardization_matrix(mat, l_func, sign_equ, count_equ, count_x);
+
+	matrix_print(mat, count_equ, count_x);
+
 	free(l_func);
+	free(sign_equ);
 	matrix_free(mat, count_equ);
 	return 0;
 }
