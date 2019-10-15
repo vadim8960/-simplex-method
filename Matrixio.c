@@ -57,8 +57,9 @@ float* parse_data(int* sing_equ, int count_x) {
 			while (str[i++] != 'x');
 			char str_index[10] = {};
 			for (int ind = 0; i < strlen(str) && '0' <= str[i] && str[i] <= '9'; ++ind, ++i) str_index[ind] = str[i];
-			arr[atoi(str_index)] = (flag_sign) ? atof(num) : -1 * atof(num);
+			arr[atoi(str_index)] += ((flag_sign) ? atof(num) : -1 * atof(num));
 			flag_sign = true;
+			--i;
 		}
 
 		if (str[i] == '=') {
