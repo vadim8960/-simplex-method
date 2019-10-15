@@ -11,6 +11,8 @@ void matrix_free(float** arr, int size_x);
 
 void matrix_print(float** arr, int size_x, int size_y);
 
+void l_function_print(float* arr, int count_x);
+
 float* parse_data(int* sing_equ, int count_x);
 
 float** read_data(float* l_func, int* sign_equ, int count_equ, int count_x);

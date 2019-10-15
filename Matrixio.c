@@ -22,6 +22,13 @@ void matrix_print(float** arr, int size_x, int size_y) {
 	}
 }
 
+void l_function_print(float* arr, int count_x) {
+	printf("L = ");
+	for (int i = 0; i < count_x; ++i)
+		printf("%4f ", arr[i]);
+	printf("\n");
+}
+
 /*
  *	Sign equation
  * 0 - =

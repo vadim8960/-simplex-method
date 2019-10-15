@@ -10,12 +10,58 @@ void standardization_matrix(float** mat, float* l_func, int* sign_equ, int count
 		l_func[i] *= -1;
 }
 
-bool check_matrix(float** mat, int count_equ, int count_x) {
+bool check_matrix(float** mat, float* l_func, int count_equ, int count_x) {
+	for (int i = 1; i < count_x; ++i) {
+		if (l_func[i] > 0) {
+			bool flag_ispos = false;
+			for (int j = 0; j < count_equ; ++j) {
+				if (mat[j][i] > 0) {
+					flag_ispos = true;
+				}
+			}
+			if (!flag_ispos)
+				return false;
+		}
+	}
+	return true;
+}
 
+bool check_answer(float** mat, float* l_func, int count_equ, int count_x) {
+	bool flag_possign_mat = true, flag_negsign_l = true;
+	for (int i = 0; i < count_equ; ++i)
+		if (mat[i][0] < 0) {
+			flag_possign_mat = false;
+			break;
+		}
+
+	for (int i = 1; i < count_x; ++i) 
+		if (l_func[i] > 0) {
+			flag_negsign_l = false;
+			break;
+		}
+	return (flag_possign_mat && flag_negsign_l);
+}
+
+void update_matrix(float** mat, float* l_func, int count_equ, int count_x) {
+	int index1, index2;
+	for (int i = 1; i < count_x; ++i) {
+		if (l_func[i] > 0) {
+			index2 = i;
+			float min = 100000.0f;
+			for (int j = 0; j < count_equ; ++j) {
+				if (mat[j][i] > 0 && (mat[j][i] / mat[j][0]) < min) {
+					min = mat[j][i] / mat[j][0];
+					index1 = j;
+				}
+			}
+		}
+		swap_variables(mat, l_func, count_equ, count_x, index1, index2);
+		break;
+	}
 }
 
 void swap_variables(float** mat, float* l_func, int count_equ, int count_x, int index1, int index2) {
-	++index2;
+	// ++index2;
 	float lambda = 1 / mat[index1][index2];
 	for (int i = 0; i < count_x; ++i)
 		if (i != index2)
@@ -39,4 +85,22 @@ void swap_variables(float** mat, float* l_func, int count_equ, int count_x, int 
 		l_func[i] += ( mat[0][index2] * mat[index1][i] * mat[index1][index2] );
 	}
 	mat[index1][index2] = lambda;
+}
+
+float calc_min(float** mat, float* l_func, int count_equ, int count_x, int* error) {
+	while (1) {
+		// matrix_print(mat, count_equ, count_x);
+		printf("Check matrix\n");
+		if (!check_matrix(mat, l_func, count_equ, count_x)) {
+			*error = 1;
+			return 0;
+		}
+		printf("Check answer\n");
+		if (check_answer(mat, l_func, count_equ, count_x)) {
+			*error = 0;
+			return l_func[0];
+		}
+		printf("Update matrix\n");
+		update_matrix(mat, l_func, count_equ, count_x);
+	}
 }
