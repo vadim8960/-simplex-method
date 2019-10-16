@@ -15,11 +15,9 @@ int main() {
 
 	standardization_matrix(mat, l_func, sign_equ, count_equ, count_x);
 
-	// matrix_print(mat, count_equ, count_x);
-	// l_function_print(l_func, count_x);
 	float v = calc_min(mat, l_func, count_equ, count_x, &error);
 	if (!error)
-		printf("Lmin = %f", v);
+		printf("Lmin = %f\n", v);
 	else 
 		printf("Error %d\n", error);
 
@@ -28,3 +26,12 @@ int main() {
 	matrix_free(mat, count_equ);
 	return 0;
 }
+
+/*
+
+x1-x2+2x3=5
+2x1-x2=-1
+2x2-x3=1
+-x1-x3=-2
+
+*/
