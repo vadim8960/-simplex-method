@@ -66,13 +66,6 @@ void update_matrix(float** mat, float* l_func, int count_equ, int count_x) {
 	}
 }
 
-/*
--5x1-x2+2x3<=2
--x1+x3+x4<=5
--3x1+5x4<=7
-5x1-2x3
-*/
-
 void swap_variables(float** mat, float* l_func, int count_equ, int count_x, int index1, int index2) {
 	float lambda = 1 / mat[index1][index2];
 	for (int i = 0; i < count_x; ++i)
@@ -101,7 +94,7 @@ void swap_variables(float** mat, float* l_func, int count_equ, int count_x, int 
 
 float calc_min(float** mat, float* l_func, int count_equ, int count_x, int* error) {
 	while (1) {
-		
+
 		// matrix_print(mat, count_equ, count_x);
 		// l_function_print(l_func, count_x);
 

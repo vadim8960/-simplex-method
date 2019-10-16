@@ -38,11 +38,11 @@ void l_function_print(float* arr, int count_x) {
  * 4 - <=
  */
 
-float* parse_data(int* sing_equ, int count_x) {
+float* parse_data(int* sing_equ, int count_x, FILE* in) {
 	char str[100];
 	float* arr = (float*)malloc(count_x * sizeof(float*));
 	int index;
-	fgets(str, 100, stdin);
+	fgets(str, 100, in);
 	bool flag_sign = true, flag_end_equ = false;
 	for (int i = 0; i < strlen(str); ++i) {
 		if (str[i] == '-')
@@ -92,15 +92,27 @@ float* parse_data(int* sing_equ, int count_x) {
 	return arr;
 }
 
+float** read_data(float* l_func, int* sign_equ, int count_equ, int count_x, FILE* in) {
+	while ((getchar()) != '\n');
+	float** mat = (float**)malloc(count_equ * sizeof(float**));
+	for (int c = 0; c < count_equ; c++) {
+		*(mat + c) = (float*)parse_data(&sign_equ[c], count_x, in);
+	}
+	float* tmp = parse_data(&sign_equ[0], count_x, in);
+	for (int i = 0; i < count_x; ++i)
+		l_func[i] = tmp[i];
+	return mat;
+}
+
 float** read_data(float* l_func, int* sign_equ, int count_equ, int count_x) {
 	printf("Enter equation system: \n");
 	while ((getchar()) != '\n');
 	float** mat = (float**)malloc(count_equ * sizeof(float**));
 	for (int c = 0; c < count_equ; c++) {
-		*(mat + c) = (float*)parse_data(&sign_equ[c], count_x);
+		*(mat + c) = (float*)parse_data(&sign_equ[c], count_x, stdin);
 	}
 	printf("Enter L function\nL = ");
-	float* tmp = parse_data(&sign_equ[0], count_x);
+	float* tmp = parse_data(&sign_equ[0], count_x, stdin);
 	for (int i = 0; i < count_x; ++i)
 		l_func[i] = tmp[i];
 	return mat;

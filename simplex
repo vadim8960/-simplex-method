@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm *.gch 2>> /dev/null
+g++ main.c Matrix*
+./a.out $*

@@ -2,8 +2,8 @@
 
 if [ -n "$1" ]
 then
-	rm *.gch 
-	rm a.out
+	rm *.gch 2>> /dev/null
+	rm a.out 2>> /dev/null
 	git add .
 	git commit -m "$*"
 	git pull
