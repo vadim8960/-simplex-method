@@ -29,6 +29,59 @@ void l_function_print(float* arr, int count_x) {
 	printf("\n");
 }
 
+FILE* operate_terminal_command(int argc, char** argv, int* count_x, int* count_equ, int* error) {
+	FILE* in;
+	if (argc > 1) {
+		if (argv[1][0] == '-' && argv[1][1] == 'h') {
+			printf("simlex - program for solve Simplex method\n\n");
+			printf("usage: ./simplex -h\n");
+			printf("usage: ./simplex -c\n");
+			printf("usage: ./simplex [-f filename] [-e count_equation] [-x count_x]\n\n");
+			printf("Options:\n");
+			printf("  -f                            set input file\n");
+			printf("  -c                            console input\n");
+			printf("  -e                            set count equations\n");
+			printf("  -x                            set count x\n");
+			printf("  -h                            display help message and exit\n");
+			return 0;
+		} else if (argv[1][0] == '-' && argv[1][1] == 'f') {
+			in = fopen(argv[2], "r");
+			if (in == NULL) {
+				if (argv[2] == NULL)
+					printf("No input file\n");
+				else 
+					printf("Not found %s\n", argv[2]);
+				*error = 1;
+				return NULL;
+			}
+			if (argc < 5) {
+				printf("Not correct format. For info enter -h\n");
+				*error = 1;
+				return NULL;
+			}
+			if (argv[3][0] == '-' && argv[3][1] == 'e') {
+				*count_equ = atoi(argv[4]);
+			} 
+			if (argc < 7) {
+				printf("Not correct format. For info enter -h\n");
+				*error = 1;
+				return NULL;
+			}
+			if (argv[5][0] == '-' && argv[5][1] == 'x') {
+				*count_x = atoi(argv[6]);
+			} 
+		} else if (argv[1][0] == '-' && argv[1][1] == 'c') {
+			*error = 2;
+			return NULL;
+		} else {
+			printf("Not correct format. For info enter -h\n");
+			*error = 1;
+			return NULL;
+		}
+	}
+	return in;
+}
+
 /*
  *	Sign equation
  * 0 - =
@@ -93,7 +146,6 @@ float* parse_data(int* sing_equ, int count_x, FILE* in) {
 }
 
 float** read_data(float* l_func, int* sign_equ, int count_equ, int count_x, FILE* in) {
-	while ((getchar()) != '\n');
 	float** mat = (float**)malloc(count_equ * sizeof(float**));
 	for (int c = 0; c < count_equ; c++) {
 		*(mat + c) = (float*)parse_data(&sign_equ[c], count_x, in);
