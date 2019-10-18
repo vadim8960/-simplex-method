@@ -102,10 +102,11 @@ void swap_variables(float** mat, float* l_func, int count_equ, int count_x, int 
 }
 
 float calc_min(float** mat, float* l_func, int count_equ, int count_x, int* error, char** var_arr) {
+	int iter = 0;
 	while (1) {
-
-		matrix_print(mat, l_func, count_equ, count_x, var_arr);
-
+		char out[100];
+		sprintf(out,"Iteration #%d: ", iter++);
+		matrix_print(mat, l_func, count_equ, count_x, var_arr, out);
 		if (!check_matrix(mat, l_func, count_equ, count_x)) {
 			*error = 1;
 			return 0;

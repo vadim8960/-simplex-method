@@ -19,15 +19,15 @@ int len_int(int a) {
 	return strlen(s);
 }
 
-void matrix_print(float** arr, float* l_func, int size_x, int size_y, char** var_arr) {
-	printf("Matrix: \n");
+void matrix_print(float** arr, float* l_func, int size_x, int size_y, char** var_arr, char* name) {
+	printf("%s\n", name);
 	int* space = (int*)malloc(size_y * sizeof(int*));
 
 	for (int i = 0; i < size_y; ++i) {
 		int max_len = -1;
 		for (int j = 0; j < size_x; ++j) {
 			char t_str[100];
-			sprintf(t_str, "%f", arr[j][i]);
+			sprintf(t_str, "%10f", arr[j][i]);
 			int l = strlen(t_str);
 			if (l > max_len) {
 				max_len = strlen(t_str);
@@ -40,7 +40,7 @@ void matrix_print(float** arr, float* l_func, int size_x, int size_y, char** var
 
 	for (int i = 0; i < size_y; ++i) {
 		int j;
-		for (j = 0; j < space[i] / 2; ++j)
+		for (j = 0; j < space[i] / 2 - 1; ++j)
 			printf(" ");
 
 		if (!i) printf("b");
@@ -55,7 +55,7 @@ void matrix_print(float** arr, float* l_func, int size_x, int size_y, char** var
 
 	printf("L ");
 	for (int i = 0; i < size_y; ++i) {
-		printf("%10f", l_func[i]);
+		printf("%11f", l_func[i]);
 	}
 	printf("\n");
 
@@ -63,7 +63,7 @@ void matrix_print(float** arr, float* l_func, int size_x, int size_y, char** var
 	for (int i = 0; i < size_x; ++i) {
 		printf("%s", var_arr[size_y + i - 1]);
 		for (int j = 0; j < size_y; ++j)
-			printf("%10f", arr[i][j]);
+			printf("%11f", arr[i][j]);
 		printf("\n");
 	}
 	printf("\n");

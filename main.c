@@ -37,15 +37,15 @@ int main(int argc, char** argv) {
 	else
 		mat = read_data(l_func, sign_equ, count_equ, count_x, in);
 
-	matrix_print(mat, l_func, count_equ, count_x, var_arr);
-
 	standardization_matrix(mat, l_func, sign_equ, count_equ, count_x);
+
+	matrix_print(mat, l_func, count_equ, count_x, var_arr, (char*)"Input matrix after standardization: ");
 
 	float v = calc_min(mat, l_func, count_equ, count_x, &error, var_arr);
 	if (!error)
-		printf("Lmin = %f\n", v);
+		printf("Lmin = %f\n\n", v);
 	else 
-		printf("Error %d\n", error);
+		printf("Error %d\n\n", error);
 
 	if (in != NULL)
 		fclose(in);
