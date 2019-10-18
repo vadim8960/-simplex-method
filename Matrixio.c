@@ -66,6 +66,7 @@ void matrix_print(float** arr, float* l_func, int size_x, int size_y, char** var
 			printf("%10f", arr[i][j]);
 		printf("\n");
 	}
+	printf("\n");
 }
 
 void l_function_print(float* arr, int count_x) {

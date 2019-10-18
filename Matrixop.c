@@ -1,5 +1,13 @@
 #include "Matrixop.h"
 
+static void swap_str(char* str1, char* str2) {
+	if (!strcmp(str1, str2)) return;
+	char tmp[100];
+	strcpy(tmp, str1);
+	strcpy(str1, str2);
+	strcpy(str2, tmp);
+}
+
 void standardization_matrix(float** mat, float* l_func, int* sign_equ, int count_equ, int count_x) {
 	for (int i = 0; i < count_equ; ++i) {
 		bool flag_chsign = ( sign_equ[i] == 1 || sign_equ[i] == 3 || sign_equ[i] == 0 );
@@ -48,7 +56,7 @@ bool check_answer(float** mat, float* l_func, int count_equ, int count_x) {
 	return (flag_possign_mat && flag_negsign_l);
 }
 
-void update_matrix(float** mat, float* l_func, int count_equ, int count_x) {
+void update_matrix(float** mat, float* l_func, int count_equ, int count_x, char** var_arr) {
 	int index1, index2;
 	for (int i = 1; i < count_x; ++i) {
 		if (l_func[i] > 0) {
@@ -60,6 +68,7 @@ void update_matrix(float** mat, float* l_func, int count_equ, int count_x) {
 					index1 = j;
 				}
 			}
+			swap_str(var_arr[index2 - 1], var_arr[count_x + index1 - 1]);
 			swap_variables(mat, l_func, count_equ, count_x, index1, index2);
 			break;
 		}
@@ -92,11 +101,10 @@ void swap_variables(float** mat, float* l_func, int count_equ, int count_x, int 
 	mat[index1][index2] = lambda;
 }
 
-float calc_min(float** mat, float* l_func, int count_equ, int count_x, int* error) {
+float calc_min(float** mat, float* l_func, int count_equ, int count_x, int* error, char** var_arr) {
 	while (1) {
 
-		// matrix_print(mat, count_equ, count_x);
-		// l_function_print(l_func, count_x);
+		matrix_print(mat, l_func, count_equ, count_x, var_arr);
 
 		if (!check_matrix(mat, l_func, count_equ, count_x)) {
 			*error = 1;
@@ -108,6 +116,6 @@ float calc_min(float** mat, float* l_func, int count_equ, int count_x, int* erro
 			return l_func[0];
 		}
 
-		update_matrix(mat, l_func, count_equ, count_x);
+		update_matrix(mat, l_func, count_equ, count_x, var_arr);
 	}
 }

@@ -32,10 +32,6 @@ int main(int argc, char** argv) {
 		strcpy(&var_arr[i - 1][0], d);
 	}
 
-	for (int i = 0; i < count_equ + count_x; ++i)
-		printf("%s ", var_arr[i]);
-	printf("\n");
-
 	if (error == 2)
 		mat = read_data(l_func, sign_equ, count_equ, count_x);
 	else
@@ -45,7 +41,7 @@ int main(int argc, char** argv) {
 
 	standardization_matrix(mat, l_func, sign_equ, count_equ, count_x);
 
-	float v = calc_min(mat, l_func, count_equ, count_x, &error);
+	float v = calc_min(mat, l_func, count_equ, count_x, &error, var_arr);
 	if (!error)
 		printf("Lmin = %f\n", v);
 	else 
