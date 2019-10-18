@@ -13,11 +13,57 @@ void matrix_free(float** arr, int size_x) {
 	free(arr);
 }
 
-void matrix_print(float** arr, int size_x, int size_y) {
+int len_int(int a) {
+	char s[100];
+	sprintf(s, "%d", a);
+	return strlen(s);
+}
+
+void matrix_print(float** arr, float* l_func, int size_x, int size_y, char** var_arr) {
 	printf("Matrix: \n");
+	int* space = (int*)malloc(size_y * sizeof(int*));
+
+	for (int i = 0; i < size_y; ++i) {
+		int max_len = -1;
+		for (int j = 0; j < size_x; ++j) {
+			char t_str[100];
+			sprintf(t_str, "%f", arr[j][i]);
+			int l = strlen(t_str);
+			if (l > max_len) {
+				max_len = strlen(t_str);
+			}
+		}
+		space[i] = max_len;
+	}
+
+	printf("    ");
+
+	for (int i = 0; i < size_y; ++i) {
+		int j;
+		for (j = 0; j < space[i] / 2; ++j)
+			printf(" ");
+
+		if (!i) printf("b");
+		else { 
+			printf("%s", var_arr[i - 1]);
+			j += len_int(i);
+		}
+		for (; j < space[i]; ++j)
+			printf(" ");
+	}
+	printf("\n");
+
+	printf("L ");
+	for (int i = 0; i < size_y; ++i) {
+		printf("%10f", l_func[i]);
+	}
+	printf("\n");
+
+	int var_iter = 0;
 	for (int i = 0; i < size_x; ++i) {
+		printf("%s", var_arr[size_y + i - 1]);
 		for (int j = 0; j < size_y; ++j)
-			printf("%4f ", arr[i][j]);
+			printf("%10f", arr[i][j]);
 		printf("\n");
 	}
 }
@@ -43,6 +89,7 @@ FILE* operate_terminal_command(int argc, char** argv, int* count_x, int* count_e
 			printf("  -e                            set count equations\n");
 			printf("  -x                            set count x\n");
 			printf("  -h                            display help message and exit\n");
+			*error = 1;
 			return 0;
 		} else if (argv[1][0] == '-' && argv[1][1] == 'f') {
 			in = fopen(argv[2], "r");
@@ -70,6 +117,7 @@ FILE* operate_terminal_command(int argc, char** argv, int* count_x, int* count_e
 			if (argv[5][0] == '-' && argv[5][1] == 'x') {
 				*count_x = atoi(argv[6]);
 			} 
+			return in;
 		} else if (argv[1][0] == '-' && argv[1][1] == 'c') {
 			*error = 2;
 			return NULL;
@@ -79,7 +127,9 @@ FILE* operate_terminal_command(int argc, char** argv, int* count_x, int* count_e
 			return NULL;
 		}
 	}
-	return in;
+	printf("Not correct format. For info enter -h\n");
+	*error = 1;
+	return NULL;
 }
 
 /*
