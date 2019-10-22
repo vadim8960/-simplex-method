@@ -161,10 +161,22 @@ float* parse_data(int* sing_equ, int count_x, FILE* in) {
 			if (!flag_value)
 				num[0] = '1';
 
-			if (flag_end_equ) {
-				arr[0] = (flag_sign) ? atof(num) : -1 * atof(num);
+			bool flag_var = false;
+			for (int j = i; str[j] != '+' && str[j] != '-' && j < strlen(str); ++j) {
+				if (str[j] == 'x' || str[j] == '*') {
+					flag_var = true;
+					break;
+				}
+			}
+
+			if (!flag_var) {
+				float v = atof(num);
+				if (flag_end_equ) v *= -1;
+				arr[0] += (flag_sign) ? v : -1 * v;
+				i--;
 				continue;
 			}
+
 			while (str[i++] != 'x');
 			char str_index[10] = {};
 			for (int ind = 0; i < strlen(str) && '0' <= str[i] && str[i] <= '9'; ++ind, ++i) str_index[ind] = str[i];

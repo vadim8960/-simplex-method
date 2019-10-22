@@ -37,6 +37,8 @@ int main(int argc, char** argv) {
 	else
 		mat = read_data(l_func, sign_equ, count_equ, count_x, in);
 
+	matrix_print(mat, l_func, count_equ, count_x, var_arr, (char*)"Input matrix: ");
+
 	standardization_matrix(mat, l_func, sign_equ, count_equ, count_x);
 
 	matrix_print(mat, l_func, count_equ, count_x, var_arr, (char*)"Input matrix after standardization: ");

@@ -11,7 +11,6 @@ static void swap_str(char* str1, char* str2) {
 void standardization_matrix(float** mat, float* l_func, int* sign_equ, int count_equ, int count_x) {
 	for (int i = 0; i < count_equ; ++i) {
 		bool flag_chsign = ( sign_equ[i] == 1 || sign_equ[i] == 3 || sign_equ[i] == 0 );
-		mat[i][0] *= -1;
 		for (int j = 0; j < count_x; ++j) 
 			mat[i][j] *= ((flag_chsign) ? 1 : -1);
 	}
