@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
 		if (i < count_x)
 			sprintf(d, "x%d", i);
 		else 
-			sprintf(d, "y%d", i - count_equ - 1);
+			sprintf(d, "y%d", i - count_x + 1);
 		strcpy(&var_arr[i - 1][0], d);
 	}
 
@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
 	if (!error)
 		printf("Lmin = %f\n\n", v);
 	else 
-		printf("Error %d\n\n", error);
+		printf("Lmin = -inf\n\n");
 
 	if (in != NULL)
 		fclose(in);
