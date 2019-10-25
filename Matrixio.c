@@ -80,7 +80,7 @@ FILE* operate_terminal_command(int argc, char** argv, int* count_x, int* count_e
 	FILE* in;
 	if (argc > 1) {
 		if (argv[1][0] == '-' && argv[1][1] == 'h') {
-			printf("simlex - program for solve Simplex method\n\n");
+			printf("simlex - программа для решения задачи линейного программирования с помощью Симплес метода\n\n");
 			printf("usage: ./simplex -h\n");
 			printf("usage: ./simplex -c\n");
 			printf("usage: ./simplex [-f filename] [-e count_equation] [-x count_x]\n\n");

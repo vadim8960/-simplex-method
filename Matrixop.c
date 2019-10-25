@@ -104,7 +104,7 @@ float calc_min(float** mat, float* l_func, int count_equ, int count_x, int* erro
 	int iter = 0;
 	while (1) {
 		char out[100];
-		sprintf(out,"Iteration #%d: ", iter++);
+		sprintf(out,"Итерация #%d: ", iter++);
 		matrix_print(mat, l_func, count_equ, count_x, var_arr, out);
 		if (!check_matrix(mat, l_func, count_equ, count_x)) {
 			*error = 1;

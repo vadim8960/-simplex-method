@@ -8,9 +8,9 @@ int main(int argc, char** argv) {
 	if (error == 1) return 0;
 
 	if (in == NULL){
-		printf("Enter count variable x: ");
+		printf("Введите количество переменных x: ");
 		scanf("%d", &count_x);
-		printf("Enter count equations: ");
+		printf("Введите количество уравнений/неравенств: ");
 		scanf("%d", &count_equ);
 	}
 
@@ -37,11 +37,11 @@ int main(int argc, char** argv) {
 	else
 		mat = read_data(l_func, sign_equ, count_equ, count_x, in);
 
-	matrix_print(mat, l_func, count_equ, count_x, var_arr, (char*)"Input matrix: ");
+	matrix_print(mat, l_func, count_equ, count_x, var_arr, (char*)"Введеная матрица: ");
 
 	standardization_matrix(mat, l_func, sign_equ, count_equ, count_x);
 
-	matrix_print(mat, l_func, count_equ, count_x, var_arr, (char*)"Input matrix after standardization: ");
+	matrix_print(mat, l_func, count_equ, count_x, var_arr, (char*)"Введеная матрица после стандартизации: ");
 
 	float v = calc_min(mat, l_func, count_equ, count_x, &error, var_arr);
 	if (!error)
