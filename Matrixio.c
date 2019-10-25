@@ -81,29 +81,29 @@ FILE* operate_terminal_command(int argc, char** argv, int* count_x, int* count_e
 	if (argc > 1) {
 		if (argv[1][0] == '-' && argv[1][1] == 'h') {
 			printf("simlex - программа для решения задачи линейного программирования с помощью Симплес метода\n\n");
-			printf("usage: ./simplex -h\n");
-			printf("usage: ./simplex -c\n");
-			printf("usage: ./simplex [-f filename] [-e count_equation] [-x count_x]\n\n");
-			printf("Options:\n");
-			printf("  -f                            set input file\n");
-			printf("  -c                            console input\n");
-			printf("  -e                            set count equations\n");
-			printf("  -x                            set count x\n");
-			printf("  -h                            display help message and exit\n");
+			printf("использование: ./simplex -h\n");
+			printf("использование: ./simplex -c\n");
+			printf("использование: ./simplex [-f имя файла] [-e количество уравнений] [-x количество переменных]\n\n");
+			printf("Параметры:\n");
+			printf("  -f                            имя файла данных\n");
+			printf("  -c                            ввод через консоль\n");
+			printf("  -e                            количество уравнений\n");
+			printf("  -x                            количество переменных\n");
+			printf("  -h                            вывести инструкцию и выйти\n");
 			*error = 1;
 			return 0;
 		} else if (argv[1][0] == '-' && argv[1][1] == 'f') {
 			in = fopen(argv[2], "r");
 			if (in == NULL) {
 				if (argv[2] == NULL)
-					printf("No input file\n");
+					printf("Нет входного файла\n");
 				else 
-					printf("Not found %s\n", argv[2]);
+					printf("Не найден файл %s\n", argv[2]);
 				*error = 1;
 				return NULL;
 			}
 			if (argc < 5) {
-				printf("Not correct format. For info enter -h\n");
+				printf("Некорректный ввод. Для информации введите -h\n");
 				*error = 1;
 				return NULL;
 			}
@@ -111,7 +111,7 @@ FILE* operate_terminal_command(int argc, char** argv, int* count_x, int* count_e
 				*count_equ = atoi(argv[4]);
 			} 
 			if (argc < 7) {
-				printf("Not correct format. For info enter -h\n");
+				printf("Некорректный ввод. Для информации введите -h\n");
 				*error = 1;
 				return NULL;
 			}
@@ -123,12 +123,12 @@ FILE* operate_terminal_command(int argc, char** argv, int* count_x, int* count_e
 			*error = 2;
 			return NULL;
 		} else {
-			printf("Not correct format. For info enter -h\n");
+			printf("Некорректный ввод. Для информации введите -h\n");
 			*error = 1;
 			return NULL;
 		}
 	}
-	printf("Not correct format. For info enter -h\n");
+	printf("Некорректный ввод. Для информации введите -h\n");
 	*error = 1;
 	return NULL;
 }
@@ -220,13 +220,13 @@ float** read_data(float* l_func, int* sign_equ, int count_equ, int count_x, FILE
 }
 
 float** read_data(float* l_func, int* sign_equ, int count_equ, int count_x) {
-	printf("Enter equation system: \n");
+	printf("Введите систему уравнений/неравенств: \n");
 	while ((getchar()) != '\n');
 	float** mat = (float**)malloc(count_equ * sizeof(float**));
 	for (int c = 0; c < count_equ; c++) {
 		*(mat + c) = (float*)parse_data(&sign_equ[c], count_x, stdin);
 	}
-	printf("Enter L function\nL = ");
+	printf("Введите функцию L\nL = ");
 	float* tmp = parse_data(&sign_equ[0], count_x, stdin);
 	for (int i = 0; i < count_x; ++i)
 		l_func[i] = tmp[i];
